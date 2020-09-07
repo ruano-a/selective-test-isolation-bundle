@@ -1,0 +1,18 @@
+{
+    "name": "ruano_a/selective-test-isolation-bundle",
+    "description": "A Symfony bundle providing a way to simply rollback the database if an annotation is present on test methods.",
+    "type": "symfony-bundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ruano-a",
+            "email": "aurelien.ruano@epitech.eu"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "ruano_a\\SelectiveTestIsolationBundle\\": ""
+        }
+    }
+}
