@@ -7,7 +7,7 @@ It only works with a PHPUnit which version is >= 7.5 .
 composer require --dev ruano_a/selective-test-isolation-bundle
 ~~~~
 
-Add the bundle in bundles.php:
+* If using symfony 3 or below : add the bundle in AppKernel.php:
 
 ```php
 if (in_array($env, ['dev', 'test'])) {
@@ -18,7 +18,16 @@ if (in_array($env, ['dev', 'test'])) {
 }
 ```
 
-Add the extension in your xml config (phpunit.xml)
+* Else if using symfony 4 or above : add the bundle in bundles.php:
+
+```php
+return [
+    ...,
+    ruano_a\SelectiveTestIsolationBundle\SelectiveTestIsolationBundle::class => ['test' => true],
+];
+```
+
+* Add the extension in your xml config (phpunit.xml)
 
 ```xml
     <phpunit>
@@ -30,12 +39,22 @@ Add the extension in your xml config (phpunit.xml)
 ```
 
 * The test class using the annotation must extends the ruano_a\SelectiveTestIsolationBundle\PHPUnit\IsolableKernelTestCase class.
+
+```php
+    class myTestClass extends IsolableKernelTestCase
+    {
+    ...
+```
+
 * Then put the @Rollback annotation (from ruano_a\SelectiveTestIsolationBundle\Annotations\Rollback) to the methods that mustn't affect the database:
 
-```
+```php
     /**
      * @Rollback
      */
+    public function testFunctionChangingTheDatabase()
+    {
+    ...
 ```
 
 And that's it.
